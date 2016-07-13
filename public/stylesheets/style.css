@@ -1,0 +1,54 @@
+*{margin: 0;padding: 0;}
+body {
+  padding: 100px;
+  font: 14px;
+  font-family: "微软雅黑";
+  background-color: #f9f9f9;
+}
+
+a {
+  color: #00B7FF;
+}
+ul,li{ list-style: none}
+.my_nav{ background-color: #cd1e1c; font-size: 18px; border: none}
+.my_nav .navbar-nav>li>a{ color: #fff;}
+.my_nav .navbar-nav>li.active>a ,.my_nav .navbar-nav>li>a:hover { background-color: #a00;}
+.car_type{
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 1px 0px rgba(200,100,100,0.5);
+}
+.car_type li{ text-align: center;font-size: 18px;position: relative;}
+.car_type li:after{position: absolute; width: 1px; height: 100px;top: 30px; overflow: hidden; content:''; background-color: #ebebeb;right: 0;}
+.car_type li:last-child:after{display: none}
+.car_type li:hover{margin-bottom: -2px; border-bottom:2px solid  #c00; background-color: #fff;}
+.car_type li a{ display: block; width: 100%;height: 100%; text-decoration: none; color: #666;}
+.car_type li:hover a{color: #c00;}
+.car_model{display: block;width: 90px; height: 90px;background: url("../images/car-models.png") no-repeat;margin: 10px auto;}
+.m_0{background-position: 0 0;}
+.m_1{background-position:-90px 0;}
+.m_2{background-position: -180px 0;}
+.m_3{background-position: -270px 0;}
+.m_4{background-position: -360px 0;}
+.m_5{background-position:-450px 0;}
+.focusing{border:1px solid #eee;}
+.focus_left{background-color: #fff;}
+.focus_left h2,.focus_right h2{margin: 0;line-height: 50px;border-bottom:2px solid #c00; font-size: 24px; }
+.foucs_list li {margin-top:20px;padding-bottom:20px;border-bottom: 1px solid #efefef;}
+.foucs_list li:last-child{border-bottom: none;}
+.foucs_list li:hover{background-color:#efefef }
+.foucs_list li>a,.foucs_list li img{ display:block; width: 100%;}
+.img_titles h3,.recommend_list li h3{ font-size: 16px; color: #333;margin: 0; line-height: 40px;}
+.img_titles p{ line-height: 30px; height: 30px;overflow: hidden; font-size: 14px; color: #333;}
+.img_titles span{ font-weight: bold; margin-right: 10px;}
+.img_titles a,.recommend_list li h3 a{ color: #666;text-decoration: none;}
+.foucs_list li a:hover,.recommend_list li h3 a:hover{ color: #c00;}
+.recommend_img,.recommend_img img{display: block;border:none;width: 100%;}
+.recommend{margin-top: 20px; padding-bottom: 20px; border-bottom: 2px solid #f9f9f9;}
+.recommend_list li h3{text-align: center; line-height: 30px;}
+.recommend_list li p{ line-height: 24px; color: #888;margin: 0;}
+.recommend:hover{background-color: #fff; border-bottom: 2px solid #c00;}
+.login{margin-top: 50px;}
+.operate_contanier{ line-height: 30px; padding: 0 30px;}
+.operate_contanier a{ color: #333; font-size: 16px; font-weight:bold; margin-right: 20px; }
+.operate_contanier a:hover{color: #c00; margin-right: 20px;}
+.user_operate a{margin-right: 10px;}

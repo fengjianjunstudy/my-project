@@ -1,0 +1,23 @@
+//Created by fengjj on 2016/7/11.
+.navbar.navbar-fixed-top
+  .operate_contanier
+    - if (logined)
+      a(href='/users/update') 添加
+      a(href='/users/loginout') 退出
+    - else
+      a(href='/users/login') 登陆
+  nav.my_nav
+    .container
+      .navbar-header
+        a.navbar-brand(href='/') 长城
+      - var navList = [{name:'首页',href:'/'},{name:'资讯',href:'/information'},{name:'话题',href:'/topic'},{name:'评测',href:'/evaluating'},{name:'视频',href:'/video'},{name:'图库',href:'/images'},{name:'展会',href:'/exhibition'},{name:'赛事',href:'/march'}]
+      ul.nav.navbar-nav
+        - for(var i = 0;i < navList.length; i++)
+          - if(i === 0)
+            li.active
+              a(href=navList[i].href) #{navList[i].name}
+          - else
+            li
+              a(href=navList[i].href) #{navList[i].name}
+
+

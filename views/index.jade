@@ -1,0 +1,52 @@
+extends layout
+
+block content
+  .container
+    ul.row.car_type
+      - var name = ['哈佛H9','哈佛H8','哈佛H7','哈佛H6','哈佛H5','哈佛H1'];
+      - var car_type;
+      - var car_type_href;
+      - for(var i = 0;i < name.length; i++)
+        - car_type = 'm_'+i;
+        - car_type_href = 'car'+i;
+        li.col-sm-4.col-md-2
+          a(href=car_type_href)
+            i.car_model(class=car_type)
+            p #{name[i]}
+    .focusing.row
+      .col-lg-8.col-md-8.col-sm-12.focus_left
+        h2 聚焦
+        ul.foucs_list
+          - for(var k = 0; k < 3; k++)
+            li.row
+              .col-lg-5.col-md-5.col-sm-12
+                a(href='')
+                  img(src='/images/focus.jpg')
+              .col-lg-7.col-md-7.col-sm-12.img_titles
+                h3
+                  a(href='') 机器人堪比铜人阵-哈弗H7世界级工厂惊呆小美女
+                p
+                  span [技术大讲堂]
+                  a(href='') 惊艳之旅 探寻世界级哈弗徐水工厂
+                p
+                  span [静态图解]
+                  a(href='') 惊艳之旅 探寻世界级哈弗徐水工厂
+                p
+                  span [专题频道]
+                  a(href='') 惊艳之旅 探寻世界级哈弗徐水工厂
+      .col-lg-4.col-md-4.col-sm-12.focus_right
+        h2 热门推荐
+        ul.recommend_list.row
+          - for(var l=0;l<2;l++)
+            li.col-sm-12.col-lg-12.col-md-12
+              div.recommend
+                a(href='').recommend_img
+                  img(src='/images/focus.jpg')
+                h3
+                  a(href='') 哈弗告诉你中国最先进工厂什么样
+                p 对于现代化的汽车企业而言，想要打造一款优秀的产品，富有经验的开发...
+
+
+
+
+
