@@ -22,7 +22,10 @@ module.exports = {
     update(id,user) {
         dataList = dataList.map((u) => {
             if(u.id === id) {
-                u = user;
+                let keys = Object.keys(user);
+                for(let k of keys) {
+                    u[k] = user[k];
+                }
             }
             return u;
         });

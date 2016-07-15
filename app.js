@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var flash = require('connect-flash');
+var MongoStore = require('connect-mongo')(session);
+var setting = require('./setting');
+
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -24,10 +28,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret:'my car',
-  cookie:{maxAge:1440000}
+  secret:setting.cookieSecret,
+  key:setting.db,
+  cookie:{maxAge:1440000},
+  store:new MongoStore({
+    db:setting.db,
+    url:'mongodb://localhost:27017/blog'
+    //host:setting.host,
+    //port:setting.port
+  })
 }));
-
+app.use(flash());
 
 app.use('/', routes);
 app.use('/users', users);

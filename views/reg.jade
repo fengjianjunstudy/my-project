@@ -1,0 +1,20 @@
+//
+   Created by fengjj on 2016/7/15.
+
+extends layout
+block content
+  .container.login
+    form(action='/users/reg',method='post')
+      .form-group
+        label(for='userName') 用户名
+        input(type='text',id='userName',name='userName').form-control
+      .form-group
+        label(for='password') 密码
+        input(type='password',id='password',name='password').form-control
+      .form-group(class=err?'has-error':'')
+        label(for='repwd') 确认密码
+        input(type='password',id='repwd',name='repwd').form-control
+      .form-group
+        label(for='email') Email
+        input(type='text',id='email',name='email').form-control
+      button(type='submit').btn.btn-default 注册
