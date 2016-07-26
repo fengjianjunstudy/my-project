@@ -1,0 +1,18 @@
+//
+   Created by fengjj on 2016/7/25.
+extends layout
+
+block content
+  .container
+    .article_post
+      form(action='/users/article',method='post',enctype='multipart/form-data')
+        .form-group
+          label(for='title') 标题
+          input(type='text',class='form-control',id='title',name='title')
+        .form-group
+          label 内容
+          textarea(class="form-control", rows="3",id='content',name='content')
+        .form-group
+          label(for='imgFile') 图片
+          input(type='file',id='imgFile',name='imgFile')
+        button(type='submit').btn.btn-default 提交

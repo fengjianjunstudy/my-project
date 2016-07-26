@@ -11,7 +11,7 @@ block content
       .form-group
         label(for='password') 密码
         input(type='password',id='password',name='password').form-control
-      .form-group(class=err?'has-error':'')
+      .form-group(class=err.length ? 'has-error':'')
         label(for='repwd') 确认密码
         input(type='password',id='repwd',name='repwd').form-control
       .form-group

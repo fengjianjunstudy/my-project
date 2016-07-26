@@ -7,8 +7,8 @@ block content
     form(action='/users/login',method='post')
       .form-group
         label(for='user_name') User Name
-        input(type='text',id='user_name',name='user_name').form-control
+        input(type='text',id='user_name',name='user_name',value=user ? user.userName :'').form-control
       .form-group
         label(for='password') PassWord
-        input(type='password',id='password',name='password').form-control
+        input(type='password',id='password',name='password',value=user ? user.password :'').form-control
       button(type='submit').btn.btn-default 登录

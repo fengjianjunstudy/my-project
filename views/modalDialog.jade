@@ -1,0 +1,23 @@
+//
+   Created by fengjj on 2016/7/25.
+- if (err)
+  .modal.fade.in(style='display:block')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button',data-dismiss="modal",aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title 错误提示
+        .modal-body
+          p #{err}
+
+- if (success)
+  .modal.fade.in(style='display:block')
+    .modal-dialog
+      .modal-content
+        .modal-header
+          button.close(type='button',data-dismiss="modal",aria-label="Close")
+            span(aria-hidden="true") &times;
+          h4.modal-title 成功提示
+        .modal-body
+          p #{success}

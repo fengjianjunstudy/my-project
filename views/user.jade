@@ -8,23 +8,18 @@ block content
       table.table.table-striped
         caption users information
         tbody
-          - if (logined)
-            tr
-              th.col-lg-1 #
-              th.col-lg-4 user name
-              th.col-lg-5 email
-              th.col-lg-2 operation
-          - else
-            tr
-              th.col-lg-1 #
-              th.col-lg-4 user name
-              th.col-lg-5 email
-        - for(var i= 0;i<list.length;i++)
           tr
-            td i
-            td #{list[i]['user_name']}
-            td #{list[i]['email']}
-            - if(logined)
+            th.col-lg-1 #
+            th.col-lg-4 标题
+            th.col-lg-5 内容
+            th.col-lg-2 操作
+          - for(var i= 0;i<list.length;i++)
+            tr
+              td #{i}
+              td
+                - var url = '/users/'+list[i].userName+'/'+list[i].time+'/'+list[i].title
+                a(href=url) #{list[i]['title']}
+              td !{list[i]['content']}
               td.user_operate
                 a(href='/users/update?id='+i) edit
                 a(href='/users/del?id='+i) delete
