@@ -5,5 +5,32 @@ extends layout
 block content
   .container
     h2 #{article.title}
-    p #{article.time}
+    p 发表时间：#{article.formatTime}
+    p 作者：#{article.userName}
     p !{article.content}
+    - if(article.comments && article.comments.length>0)
+      .comment_class.container
+        .panel_head
+          span.see_comment 查看评论
+        ul.comment_list
+          - for(var i = 0;i<article.comments.length;i++)
+            li
+              span.comment_user_name #{article.comments[i].name}
+              span.commnet   #{article.comments[i].content}
+              span.comment_time  #{article.comments[i].time}
+    .comment_class.container
+      .panel_head
+        span.see_comment 留言
+      .textarea_box
+        form(action='/users/comments',method='post',enctype='multipart/form-data')
+          input(type='hidden',value=article.title,name='title',id='title')
+          input(type='hidden',value=article.time,name='time',id='time')
+          input(type='hidden',value=article.userName,name='userName',id='userName')
+          input(type='hidden',value=user.userName,name='name',id='name')
+          .form-group
+            label 留言者：
+            span #{user.userName}
+          .form-group
+            label 内容
+            textarea(class="form-control", rows="3",id='content',name='content')
+          button(type='submit').btn.btn-default 提交

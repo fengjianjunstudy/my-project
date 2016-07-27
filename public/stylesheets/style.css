@@ -52,3 +52,11 @@ ul,li{ list-style: none}
 .operate_contanier a{ color: #333; font-size: 16px; font-weight:bold; margin-right: 20px; }
 .operate_contanier a:hover{color: #c00; margin-right: 20px;}
 .user_operate a{margin-right: 10px;}
+/**评论**/
+.comment_class{border:1px solid #ccc;background-color: #fff;padding-top: 30px; padding-bottom: 30px;margin-bottom: 20px}
+.panel_head{border-bottom: 2px solid #ccc;  font-size: 14px;font-weight: bold;}
+.panel_head span{display: inline-block; border-bottom: 2px solid #c00; padding-bottom: 7px; margin-bottom: -2px;}
+.comment_list li{ border-bottom: 1px dashed #ccc; padding: 20px 150px; position: relative;margin: 0 20px;}
+.comment_user_name{display: inline-block; width: 130px;color: #c00; font-weight: bold; position: absolute;left: 20px; top: 20px;}
+.comment_time{ display: inline-block; text-align: right; position: absolute; top: 20px; right: 20px; color: #999; font-size: 12px;}
+.textarea_box{margin-top: 20px;}

@@ -8,6 +8,7 @@ const multipartMiddleware = multipart();
 const db = require(path.join(__dirname,'../db'));
 const User = require('../models/user');
 const Article = require('../models/article');
+const Comment = require('../models/comment');
 //const multer = require('multer');
 //let upload = multer({
 //  dest:'./public/images',
@@ -19,8 +20,8 @@ const Article = require('../models/article');
 /* GET users listing. */
 router.get('/',checkLogin,function(req, res) {
   let articleList = [];
-  let userName = req.session.user.userName;
-  let query ={userName:userName};
+  //let userName = req.session.user.userName;
+  let query ={};
   Article.get(query,(err,docs) => {
     if(err) {
       //return console.log(err);
@@ -55,6 +56,9 @@ router.post('/edit',[checkLogin,multipartMiddleware],editPostFn);
 router.get('/del/:userName/:time/:title',checkLogin,delGetFn);
 //查看文章
 router.get('/:userName/:time/:title',checkLogin,checkArticleFn);
+
+//留言
+router.post('/comments',[checkLogin,multipartMiddleware],commentPostFn);
 
 function regPostFn(req,res) {
   let {userName,password,repwd,email} = req.body;
@@ -193,7 +197,7 @@ function checkArticleFn(req,res) {
       let date = new Date(doc.time);
 
       time = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-      doc.time = time;
+      doc.formatTime = time;
       req.flash('success','预览成功');
       res.render('article',{title:'文章页',article:doc,err:req.flash('err').toString(),success:req.flash('success').toString(),user:req.session.user});
     }
@@ -236,5 +240,23 @@ function delGetFn(req,res) {
     req.flash('success','删除成功');
     res.redirect('/users')
   });
+}
+
+function commentPostFn(req,res) {
+  let filter = {
+    userName:req.body.userName,
+    time:Number(req.body.time),
+    title:req.body.title
+  };
+  let comment = new Comment(req.body.name,req.body.content);
+  comment.save(filter,(err,result) => {
+    if(err) {
+      req.flash('err','评论失败');
+    }else{
+      req.flash('success','评论成功');
+    }
+    res.redirect('/users/'+filter.userName+'/'+filter.time+'/'+filter.title);
+  })
+
 }
 module.exports = router;

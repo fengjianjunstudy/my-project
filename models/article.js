@@ -9,6 +9,7 @@ class Article {
         this.title = title;
         this.content = content;
         this.imgFile = imgFile;
+        this.comments = [];
     }
     save(callback) {
         let time = new Date();
@@ -17,7 +18,8 @@ class Article {
             title:this.title,
             content:this.content,
             imgFile:this.imgFile,
-            time:time.getTime()
+            time:time.getTime(),
+            comments:this.comments
         }
         mongodb.open((err,db) => {
             if(err) {
@@ -97,7 +99,7 @@ class Article {
                     mongodb.close();
                     return callback(err);
                 }
-                collection.updateOne({userName:article.userName,title:article.title,time:article.time},article,(err,result) => {
+                collection.updateOne({userName:article.userName,title:article.title,time:article.time},{$set:{content:article.content}},(err,result) => {
                     mongodb.close();
                     if(err) {
                         return callback(err);
