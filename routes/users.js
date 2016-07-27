@@ -26,7 +26,6 @@ router.get('/',checkLogin,function(req, res) {
       //return console.log(err);
     }
     articleList = docs;
-    console.log('sss',articleList);
     res.render('user',{title:'用户界面',user:req.session.user,err:req.flash('err').toString(),success:req.flash('success').toString(),list:articleList});
   });
 
@@ -48,6 +47,12 @@ router.post('/reg',regPostFn);
 router.get('/article',checkLogin,articleGetFn);
 router.post('/article',[checkLogin,multipartMiddleware],articlePostFn);
 
+//编辑文章
+router.get('/edit/:userName/:time/:title',checkLogin,editGetFn);
+router.post('/edit',[checkLogin,multipartMiddleware],editPostFn);
+
+//删除文章
+router.get('/del/:userName/:time/:title',checkLogin,delGetFn);
 //查看文章
 router.get('/:userName/:time/:title',checkLogin,checkArticleFn);
 
@@ -141,6 +146,7 @@ function loginOutFn(req,res) {
   req.session.user = null;
   res.redirect('/users');
 }
+
 function checkLogin(req,res,next) {
   if(!req.session.user) {
     req.flash('err','未登录');
@@ -160,10 +166,10 @@ function checkNotLogin(req,res,next) {
 function articleGetFn(req,res) {
   res.render('articlePost',{title:'发表文章',user:req.session.user,err:req.flash('err').toString(),success:req.flash('success').toString()});
 }
+
 function articlePostFn(req,res) {
   let user = req.session.user;
   let {title,content} = req.body;
-  console.log(title,content);
   //let imgFile = req.files.imgFile; //上传图片
   let newArticle = new Article(user.userName,title,content);
   newArticle.save((err) => {
@@ -178,7 +184,7 @@ function articlePostFn(req,res) {
 
 function checkArticleFn(req,res) {
   req.params.time = Number(req.params.time);
-  Article.getOne(req.params,(err,doc) => {
+  Article.getOne(req.params,true,(err,doc) => {
     if(err) {
       req.flash('err',err);
     }
@@ -194,4 +200,41 @@ function checkArticleFn(req,res) {
   })
 }
 
+function editGetFn(req,res) {
+  let query = req.params;
+  query.time = Number(query.time);
+  Article.getOne(query,false,(err,article) => {
+    if(err) {
+      req.flash('err',err);
+    }
+    req.flash('success','进入编辑状态');
+    res.render('articleEdit',{title:'编辑文章',err:req.flash('err').toString(),success:req.flash('success').toString(),user:req.session.user,article:article})
+  })
+}
+
+function editPostFn(req,res) {
+  let article = req.body;
+  article.time = Number(article.time);
+  Article.update(article,(err,result) => {
+    if(err) {
+      req.flash('err','更新失败');
+    }
+    req.flash('success','更新成功');
+    res.redirect('/users')
+  })
+
+
+}
+
+function delGetFn(req,res) {
+  let filter = req.params;
+  filter.time = Number(filter.time);
+  Article.deleteOne(filter,(err,result) => {
+    if(err) {
+      req.flash('err','删除失败');
+    }
+    req.flash('success','删除成功');
+    res.redirect('/users')
+  });
+}
 module.exports = router;

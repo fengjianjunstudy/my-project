@@ -21,8 +21,10 @@ block content
                 a(href=url) #{list[i]['title']}
               td !{list[i]['content']}
               td.user_operate
-                a(href='/users/update?id='+i) edit
-                a(href='/users/del?id='+i) delete
+                - var editUrl = '/users/edit/'+list[i].userName+'/'+list[i].time+'/'+list[i].title
+                - var delUrl = '/users/del/'+list[i].userName+'/'+list[i].time+'/'+list[i].title
+                a(href=editUrl) edit
+                a(href=delUrl) delete
     - else
       span 没有内容
 

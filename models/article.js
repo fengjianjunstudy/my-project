@@ -19,7 +19,6 @@ class Article {
             imgFile:this.imgFile,
             time:time.getTime()
         }
-        console.log(newArticle)
         mongodb.open((err,db) => {
             if(err) {
                 return callback(err)
@@ -65,8 +64,7 @@ class Article {
             })
         })
     }
-    static getOne(query,callback) {
-        console.log(query);
+    static getOne(query,toHtmlFlag,callback) {
         mongodb.open((err,db) => {
             if(err) {
                 return callback(err)
@@ -81,11 +79,51 @@ class Article {
                     if(err) {
                         return callback(err);
                     }
-                    if(result && result.content) {
+                    if(result && toHtmlFlag && result.content) {
                         result.content = markdown.toHTML(result.content);
                     }
                     callback(null,result);
                 })
+            })
+        })
+    }
+    static update(article,callback) {
+        mongodb.open((err,db) => {
+            if(err) {
+                return callback(err);
+            }
+            db.collection('article',(err,collection) => {
+                if(err) {
+                    mongodb.close();
+                    return callback(err);
+                }
+                collection.updateOne({userName:article.userName,title:article.title,time:article.time},article,(err,result) => {
+                    mongodb.close();
+                    if(err) {
+                        return callback(err);
+                    }
+                    callback(null,result);
+                })
+            })
+        })
+    }
+    static deleteOne(filter,callback) {
+        mongodb.open((err,db) => {
+            if(err) {
+                return callback(err);
+            }
+            db.collection('article',(err,collection) => {
+                if(err) {
+                    mongodb.close();
+                    return callback(err);
+                }
+                collection.deleteOne(filter,(err,result) => {
+                    mongodb.close();
+                    if(err) {
+                        return callback(err);
+                    }
+                    callback(null,result);
+                });
             })
         })
     }
